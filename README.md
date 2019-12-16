@@ -1,12 +1,17 @@
 # Overview
 
-Dockerized Python script that will call the Keptn Quality Gate API.
+Dockerized Python script that will call the Keptn Quality Gate API.  
 
-See example API calls in this [README](https://github.com/grabnerandi/keptn-qualitygate-examples/blob/master/sample/README.md)
+Script logic:
+1. call "start evaluation" API and and save the "keptncontext"
+1. while loop with 30 second wait between calls to "evaluate results" API using the "keptncontext"
+1. will return value of ```pass```, ```fail```, or ```warning``` by default
+1. To get the full JSON evaluation details, use the ```--evaluationdetails``` argument
+1. throws python exception with errors or no result 
 
 # Setup
 
-This assumes you are using Keptn 0.6.0beta2 and have a service onboarded.
+This assumes you are using Keptn 0.6.0beta2 and have a service onboarded.  See example setup and in this [README](https://github.com/grabnerandi/keptn-qualitygate-examples/blob/master/sample/README.md)
 
 Use this command for Keptn URL
 ```
