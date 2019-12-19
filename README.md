@@ -89,7 +89,7 @@ NOTES:
 * ```run.sh``` calls the ```docker run``` command. 
 * ```buildrun.sh``` builds local docker image and then calls the ```run.sh``` scripts
 
-You can make a ```test.sh``` script (part of .gitignore) the can call either ```run.sh``` or ```buildrun.sh```.  Here is what I did in my ```test.sh``` script:
+You can make a ```test.sh``` script (part of .gitignore) that can call either ```run.sh``` or ```buildrun.sh```.  Here is what I did in my ```test.sh``` script:
 
 ```
 #!/bin/bash
