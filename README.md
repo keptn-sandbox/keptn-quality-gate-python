@@ -88,3 +88,22 @@ NOTES:
 
 * ```run.sh``` calls the ```docker run``` command. 
 * ```buildrun.sh``` builds local docker image and then calls the ```run.sh``` scripts
+
+You can make a ```test.sh``` script (part of .gitignore) the can call either ```run.sh``` or ```buildrun.sh```.  Here is what I did in my ```test.sh``` script:
+
+```
+#!/bin/bash
+
+image=robjahn/keptn-quality-gate
+keptnApiUrl=https://api.keptn.XXXX
+keptnApiToken=XXXX
+
+start=2019-11-21T11:00:00.000Z
+end=2019-11-21T11:10:00.000Z
+project=keptnorders
+service=frontend
+stage=staging
+evaluationdetails=    # set to Y as required
+
+./run.sh $image $keptnApiUrl $keptnApiToken $start $end $project $service $stage $evaluationdetails
+```
