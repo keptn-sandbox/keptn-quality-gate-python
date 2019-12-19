@@ -11,36 +11,61 @@ Script logic:
 
 # Setup
 
-This assumes you are using Keptn 0.6.0beta2 and have a service onboarded.  See example setup and in this [README](https://github.com/grabnerandi/keptn-qualitygate-examples/blob/master/sample/README.md)
+1. This assumes you are using Keptn 0.6.0beta2 and have a service onboarded.  See example setup and in this [README](https://github.com/grabnerandi/keptn-qualitygate-examples/blob/master/sample/README.md).  You will need the following values as parameters to the quality gate.
+    * Project
+    * Service
+    * Stage
+    * Keptn API URL
+    * Keptn Token
+    * Evalation start time (UTC)
+    * Evalation end time (UTC)
 
-Use this command for Keptn URL
-```
-keptn status
-```
+1. Use this command to get your Keptn API URL
+    ```
+    keptn status
+    ```
 
-Use this command for Keptn Token
-```
-KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)
-echo $KEPTN_API_TOKEN
-```
+1. Use this command to get your Keptn Token
+    ```
+    echo "$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)"
+    ```
 
-# Usage example
+# Usage
 
-See the ```build.run``` script to build docker image and run it.
+Call the ```docker run``` command with the following scenarios.  
 
-The syntax is as follows:
+NOTES:
+  * The start and end parameters is in this format: ```2019-11-21T11:00:00.000Z```
+  * Add the ```--debug``` parameter for either scenario to get additonal details.
 
-```
-docker run -it --rm $image \
-    --url $keptnApiUrl \
-    --token $keptnApiToken \
-    --start $start \
-    --end $end \
-    --project $project \
-    --service $service \
-    --stage $stage 
-```
+1. Short result with text value of ```pass```, ```fail```, or ```warning```
 
-The result will be a text value of ```pass```, ```fail```, or ```warning```
+    ```
+    docker run -it --rm $image \
+        --url $keptnApiUrl \
+        --token $keptnApiToken \
+        --start $start \
+        --end $end \
+        --project $project \
+        --service $service \
+        --stage $stage 
+    ```
 
-To get the full JSON evaluation details, use the ```--evaluationdetails``` argument.
+1. Full JSON evaluation details, by adding the ```--evaluationdetails``` argument.
+
+    ```
+    docker run -it --rm $image \
+        --url $keptnApiUrl \
+        --token $keptnApiToken \
+        --start $start \
+        --end $end \
+        --project $project \
+        --service $service \
+        --stage $stage \
+        --evaluationdetails
+    ```
+
+# Helper scripts
+
+* ```run.sh``` called the ```docker run``` command. 
+* ```buildrun.sh``` builds local docker image and then called the ```run.sh``` scripts
